@@ -1,6 +1,7 @@
 import ReactDOM from "react-dom";
 import React from "react";
 import { BrowserRouter as Link, HashRouter } from "react-router-dom";
+import { useState } from "react/cjs/react.development";
 // import { BrowserRouter as Route, Link, HashRouter } from "react-router-dom";
 import logo from "./logo.svg";
 import "./App.css";
@@ -18,55 +19,56 @@ import { UserContext } from "./Components/context";
 import Route from "./Components/Route";
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   return (
     <HashRouter>
       <UserContext.Provider
         value={{
           users: [
             {
-              name: "Abel",
+              name: "Abel (user by default)",
               email: "abel@mit.edu",
               password: "secret",
               balance: 100,
             },
-            // {
-            //   name: "Hannah",
-            //   email: "hannah@mit.edu",
-            //   password: "hello",
-            //   balance: 850,
-            // },
-            // {
-            //   name: "Bob",
-            //   email: "bob@mit.edu",
-            //   password: "notSoSecret",
-            //   balance: 220,
-            // },
+            {
+              name: "Hannah",
+              email: "hannah@mit.edu",
+              password: "hello",
+              balance: 850,
+            },
+            {
+              name: "Bob",
+              email: "bob@mit.edu",
+              password: "notSoSecret",
+              balance: 220,
+            },
           ],
-          accountCreated:false
         }}
       >
-      <NavBar />
+        <NavBar isLoggedIn={isLoggedIn} />
         <div className="container" style={{ padding: "20px" }}>
           <Route path="">
             <Home />
           </Route>
           <Route path="#/CreateAccount/">
-            <CreateAccount/>
+            <CreateAccount onIsLoggedInChange={setIsLoggedIn} />
           </Route>
           {/* <Route path="#/login/">
             <Login/>
           </Route> */}
           <Route path="#/deposit/">
-            <Deposit/>
+            <Deposit />
           </Route>
           <Route path="#/withdraw/">
-            <Withdraw/>
+            <Withdraw />
           </Route>
           {/* <Route path="#/balance/">
             <Balance/>
           </Route> */}
           <Route path="#/alldata/">
-            <AllData/>
+            <AllData />
           </Route>
         </div>
       </UserContext.Provider>

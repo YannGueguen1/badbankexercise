@@ -2,15 +2,19 @@ import React from "react";
 import { useContext, useState } from "react";
 import { BankForm, UserContext, Card } from "./context";
 
-function CreateAccount() {
+function CreateAccount({onIsLoggedInChange}) {
   const ctx = useContext(UserContext);
   let numberOfUsers = ctx.users.length;
   const [selected, setSelected] = useState(ctx.users[numberOfUsers-1]);
 
   function handle({ name, email, password }) {
     numberOfUsers = ctx.users.length;
-    ctx.accountCreated=true;
+    onIsLoggedInChange(true)
+    console.log(ctx.users)
     setSelected(ctx.users[numberOfUsers - 1]);
+    setTimeout(() => {
+      console.log("later", ctx.users)
+    }, 5000);
     return true;
   }
 
